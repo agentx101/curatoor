@@ -1,0 +1,46 @@
+version: "3.6"
+
+x-default-volumes: &default_volumes
+    volumes:
+        - ./api:/app
+
+services:
+    webdb:
+        image: postgres:15
+        restart: always
+        environment:
+          POSTGRES_PASSWORD: ethglobal
+          POSTGRES_USER: ethglobal
+          POSTGRES_DB: ethglobal
+        ports:
+          - 5555:5432
+
+    api:
+        depends_on:
+            - webdb
+        build:
+            context: ./api
+        image: "ethglobalhack-production"
+        ports:
+            - "8080:5000"
+        command: >
+            sh -c "flask --app src run --debug --reload --host 0.0.0.0 --port 5000"
+        environment:
+            FLASK_ENV: dev
+            FLASK_DEBUG: 0
+            LOG_LEVEL: info
+            GUNICORN_WORKERS: 4
+        <<: *default_volumes
+
+    frontend:
+        depends_on:
+            - api
+        restart:
+            always
+        build:
+            context: ./web_client
+        image: "ethglobalhack-web-client"
+        ports:
+            - '5174:5173'
+        volumes:
+            - ./web_client:/app
