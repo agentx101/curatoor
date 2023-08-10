@@ -60,13 +60,14 @@ env/
 
 # dependencies
 
-/node_modules
+node_modules/
+/web_client/node_modules/
 /.pnp
 .pnp.js
 
 # testing
 
-/coverage
+coverage/
 
 # vite
 
@@ -75,7 +76,7 @@ dist-ssr
 
 # production
 
-/build
+build/
 
 # misc
 
