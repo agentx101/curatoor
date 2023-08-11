@@ -15,7 +15,7 @@ export function App() {
       <h1>OP Starter Project</h1>
 
       {/** @see https://www.rainbowkit.com/docs/connect-button */}
-      <ConnectButton />
+      <ConnectButton accountStatus="avatar" />
 
       {isConnected && (
         <>

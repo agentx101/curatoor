@@ -16,10 +16,10 @@ const router = createBrowserRouter(
     <Route path="/" element={<Root />}>
       <Route index element={<Home />} />
       <Route path="/users/:id" element={<Home />} />
-      <Route path="/users/:id/collection/" element={<Home />} />
+      <Route path="/users/:id/collections/" element={<Home />} />
       <Route path="/collections/:id/" element={<Home />} />
       <Route path="/collections" element={<Home />} />
-      <Route path="/app" element={<App />} />
+      <Route path="/connect" element={<App />} />
       <Route path="/error" element={<ErrorPage />} />
     </Route>
   ))

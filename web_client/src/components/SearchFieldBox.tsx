@@ -1,9 +1,12 @@
 
 import { useState } from 'react';
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useAccount } from "wagmi";
 import { Box, Flex, Icon, IconButton, SearchField } from 'gestalt';
 
 export default function SearchFieldBox() {
   const [searchValue, setSearchValue] = useState('');
+  const { isConnected } = useAccount();
   return (
     <Box
       padding={8}
@@ -29,12 +32,7 @@ export default function SearchFieldBox() {
             value={searchValue}
           />
         </Flex.Item>
-        <IconButton
-          accessibilityLabel="Notifications"
-          icon="speech-ellipsis"
-          size="md"
-        />
-        <IconButton accessibilityLabel="Profile" icon="person" size="md" />
+        <ConnectButton accountStatus="avatar" />
       </Flex>
     </Box>
   );

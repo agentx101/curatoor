@@ -13,7 +13,7 @@ services:
           POSTGRES_USER: ethglobal
           POSTGRES_DB: ethglobal
         ports:
-          - 5555:5432
+          - 6666:5432
 
     api:
         depends_on:
