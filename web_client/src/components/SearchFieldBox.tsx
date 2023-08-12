@@ -5,14 +5,12 @@ import { Box, Flex, Icon, ButtonLink } from 'gestalt';
 import useAccountStore from "../store/account"
 
 export default function SearchFieldBox() {
-  const [searchValue, setSearchValue] = useState('');
   const { address, isConnected } = useAccount();
   const setAccount = useAccountStore((state) => state.setAccount);
   const userId = useAccountStore((state) => state.userId);
 
 
   if (isConnected && !!address) {
-    console.log(address);
     setAccount(address);
 
   }
