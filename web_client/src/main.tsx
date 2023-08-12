@@ -5,11 +5,10 @@ import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider, createRoutesFromElements, Route } from "react-router-dom"
 import { WagmiConfig } from "wagmi";
 import Root from "./layouts/root"
-import ErrorPage from "./pages/error"
 
-import { App } from "./pages/App";
 import { Home } from "./pages/Home";
 import { Collections } from "./pages/Collections";
+import { Collection } from "./pages/Collection";
 import { chains, config } from "./wagmi";
 
 const router = createBrowserRouter(
@@ -18,10 +17,7 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="/users/:id" element={<Home />} />
       <Route path="/users/:id/collections/" element={<Collections />} />
-      <Route path="/collections/:id/" element={<Home />} />
-      <Route path="/collections" element={<Home />} />
-      <Route path="/connect" element={<App />} />
-      <Route path="/error" element={<ErrorPage />} />
+      <Route path="/users/:userId/collections/:id" element={<Collection />} />
     </Route>
   ))
 

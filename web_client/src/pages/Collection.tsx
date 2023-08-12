@@ -4,35 +4,36 @@ import { useParams } from 'react-router-dom';
 import { Box, Flex, Image, Masonry, Text } from 'gestalt';
 import useAccountStore from "../store/account"
 import useNFTStore from "../store/nft"
-import { CollectionBox } from "../components/CollectionBox"
+import { NFTBox } from "../components/NFTBox"
 
 
 
 
-export function Collections() {
+export function Collection() {
   /**
    * Wagmi hook for getting account information
    * @see https://wagmi.sh/docs/hooks/useAccount
    */
-  const userId = useAccountStore((state) => state.userId);
+  const currentUser = useAccountStore((state) => state.userId);
   const [pins, setPins] = useState([]);
-  const { id } = useParams();
+  const { userId, id } = useParams();
   const { chain } = useNetwork();
   const setSdk = useNFTStore((state) => state.setSdk);
   const fetchCollectionNfts = useNFTStore((state) => state.fetchCollectionNfts);
   console.log("This is the id")
   console.log(id);
-  if (!id) {
+  console.log(userId);
+  if (!id || !userId) {
     return <></>
   }
-  const accountId = id == "me" ? userId : parseInt(id);
-  if (!accountId) return <></>;
-
+  const collectionId = parseInt(id);
+  if (!collectionId) return <></>;
 
   useEffect(() => {
     if (!chain) return;
     setSdk(chain.network)
-    fetchCollectionNfts(accountId).then((colls) => {
+    console.log("getting collection nft")
+    fetchCollectionNfts(collectionId).then((colls) => {
       console.log(colls);
       setPins(colls);
     });
@@ -55,7 +56,7 @@ export function Collections() {
             items={pins}
             layout="basic"
             minCols={4}
-            renderItem={({ data }) => <CollectionBox data={data} />}
+            renderItem={({ data }) => <NFTBox data={data} />}
           />
 
         </div>

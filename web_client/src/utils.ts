@@ -11,8 +11,23 @@ const config = {
 
 const instance: AxiosInstance = axios.create(config);
 
+export function ipfsToWeb(link: string): string {
+  // Split the string using '/' as the delimiter
+  const splitArray = link.split('://');
+
+  // Get the last element of the array
+  const lastElement = splitArray[splitArray.length - 1];
+  return `https://${lastElement}.ipfs.w3s.link/`
+}
+
+export async function getCollectionData(collId: number) {
+  console.log(`Getting data for ${collId}`)
+  const resp = await instance.get(`/collections/${collId}`);
+  return resp.data;
+}
+
 export async function getRecommendations() {
-  const resp = await instance.get("/users/1/recommendations");
+  const resp = await instance.get("/collections");
   console.log(resp);
   return resp.data;
 }

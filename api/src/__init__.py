@@ -2,7 +2,6 @@ import os
 
 from dotenv import dotenv_values
 from flask import Flask
-from flask_cors import CORS
 
 
 def create_app(test_config=None):
@@ -10,7 +9,6 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     config = dotenv_values(os.path.join(app.instance_path, '.env'))
     app.config.from_mapping(**config)
-    CORS(app)
 
     if test_config is None:
         # load the instance config, if it exists, when not testing

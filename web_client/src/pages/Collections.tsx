@@ -19,7 +19,7 @@ export function Collections() {
   const { id } = useParams();
   const { chain } = useNetwork();
   const setSdk = useNFTStore((state) => state.setSdk);
-  const fetchCollectionNfts = useNFTStore((state) => state.fetchCollectionNfts);
+  const fetchUserCollections = useNFTStore((state) => state.fetchUserCollections);
   console.log("This is the id")
   console.log(id);
   if (!id) {
@@ -32,7 +32,7 @@ export function Collections() {
   useEffect(() => {
     if (!chain) return;
     setSdk(chain.network)
-    fetchCollectionNfts(accountId).then((colls) => {
+    fetchUserCollections(accountId).then((colls) => {
       console.log(colls);
       setPins(colls);
     });

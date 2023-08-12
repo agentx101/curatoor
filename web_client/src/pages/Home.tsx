@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Box, Flex, Image, Masonry, Text } from 'gestalt';
-import { getRecommendations } from "../utils"
+import { getRecommendations, ipfsToWeb } from "../utils"
 import { CollectionBox } from "../components/CollectionBox"
 
 
@@ -15,11 +15,13 @@ export function Home() {
   useEffect(() => {
     (async () => {
       const colls = await getRecommendations();
+      console.log("getting home stuff")
+      console.log(colls)
       const hello = colls.map((col) => ({
         color: "#fff",
         height: 300,
         width: 300,
-        src: col.image_url,
+        src: (col.image_url ? ipfsToWeb(col.image_url) : ''),
         name: col.description,
         href: `/users/${col.user_id}/collections/${col.id}`,
       }));
