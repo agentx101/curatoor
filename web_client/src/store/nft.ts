@@ -1,6 +1,7 @@
 import { Alchemy } from "alchemy-sdk";
 import { create } from 'zustand';
 import { persist, createJSONStorage, devtools } from 'zustand/middleware'
+import { getUserCollections } from "../utils"
 
 import { ALCHEMY_KEY, CHAINS } from "../constants"
 
@@ -9,6 +10,7 @@ interface NFTState {
   setSdk: (chain: string) => void,
   deleteSdk: () => void,
   fetchNfts: (address: string) => Promise<any>,
+  fetchCollectionNfts: (userId: number) => Promise<any>,
   fetchCollections: (address: string) => Promise<any>,
   currentCollection: any,
 }
@@ -42,6 +44,17 @@ const useNFTStore = create<NFTState>()(
           }
           console.log(data);
           return Promise.resolve(data)
+        },
+        fetchCollectionNfts: async (userId: number) => {
+          const data = await getUserCollections(userId);
+          return data.map((nft: any) => ({
+            name: nft?.name,
+            color: "#fff",
+            height: 200,
+            width: 200,
+            src: nft?.image_url,
+            href: `/users/${userId}/collections/${nft.id}`
+          }))
         },
         fetchCollections: async (address: string) => {
           // Print total NFT count returned in the response:

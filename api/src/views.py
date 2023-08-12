@@ -28,7 +28,12 @@ def list():
             return '', 204
 
         else:
-            result = con.execute(sa.text("SELECT id, address FROM users"))
+            address = request.args.get('address', None)
+            print(address)
+            if (address):
+                result = con.execute(sa.text("SELECT id, address FROM users WHERE address= :add"), {"add": address})
+            else:
+                result = con.execute(sa.text("SELECT id, address FROM users"))
             rv = []
 
             for row in result:
@@ -65,7 +70,7 @@ def get_or_create_user_collections(id):
             result = con.execute(
                 sa.text(
                     '''
-                    SELECT address, user_id, image_url, description, name
+                    SELECT id, address, user_id, image_url, description, name
                     FROM collections
                     WHERE user_id = :user_id
                     '''
@@ -75,6 +80,8 @@ def get_or_create_user_collections(id):
             rv = []
             for row in result:
                 rv.append({
+                    "id": row.id,
+                    "user_id": row.user_id,
                     "address": row.address,
                     "image_url": row.image_url,
                     "description": row.description,
@@ -91,7 +98,7 @@ def recos(id):
         result = con.execute(
             sa.text(
                 '''
-                SELECT address, user_id, image_url, description, name
+                SELECT id, address, user_id, image_url, description, name
                 FROM collections
                 ORDER BY random()
                 LIMIT 100
@@ -101,6 +108,8 @@ def recos(id):
         rv = []
         for row in result:
             rv.append({
+                "id": row.id,
+                "user_id": row.user_id,
                 "address": row.address,
                 "image_url": row.image_url,
                 "description": row.description,

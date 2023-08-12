@@ -1,74 +1,7 @@
-import { useAccount } from "wagmi";
-import { useEffect, useId, useRef, useState } from 'react';
-import { Box, Flex, Image, Label, Masonry, Text } from 'gestalt';
-
-function getPins() {
-  const pins = [
-    {
-      color: '#2b3938',
-      height: 316,
-      src: 'https://i.ibb.co/sQzHcFY/stock9.jpg',
-      width: 474,
-      name: 'the Hang Son Doong cave in Vietnam',
-    },
-    {
-      color: '#8e7439',
-      height: 1081,
-      src: 'https://i.ibb.co/zNDxPtn/stock10.jpg',
-      width: 474,
-      name: 'La Gran Muralla, Pekín, China',
-    },
-    {
-      color: '#698157',
-      height: 711,
-      src: 'https://i.ibb.co/M5TdMNq/stock11.jpg',
-      width: 474,
-      name: 'Plitvice Lakes National Park, Croatia',
-    },
-    {
-      color: '#4e5d50',
-      height: 632,
-      src: 'https://i.ibb.co/r0NZKrk/stock12.jpg',
-      width: 474,
-      name: 'Ban Gioc – Detian Falls : 2 waterfalls straddling the Vietnamese and Chinese border.',
-    },
-    {
-      color: '#6d6368',
-      height: 710,
-      src: 'https://i.ibb.co/zmFd0Dv/stock13.jpg',
-      width: 474,
-      name: 'Border of China and Vietnam',
-    },
-  ];
-
-  const pinList = [...new Array(3)].map(() => [...pins]).flat();
-  return Promise.resolve(pinList);
-}
-
-interface GridComponentProp {
-  name: string,
-  color: string,
-  height: number,
-  width: number,
-  src: string,
-}
-
-function GridComponent({ data }: { data: GridComponentProp }) {
-  return (
-    <Flex direction="column">
-      <Image
-        alt={data.name}
-        color={data.color}
-        naturalHeight={data.height}
-        naturalWidth={data.width}
-        src={data.src}
-      />
-      <Text>{data.name}</Text>
-    </Flex>
-  );
-}
-
-
+import { useEffect, useState } from 'react';
+import { Box, Flex, Image, Masonry, Text } from 'gestalt';
+import { getRecommendations } from "../utils"
+import { CollectionBox } from "../components/CollectionBox"
 
 
 export function Home() {
@@ -76,13 +9,23 @@ export function Home() {
    * Wagmi hook for getting account information
    * @see https://wagmi.sh/docs/hooks/useAccount
    */
-  const { isConnected } = useAccount();
   const [pins, setPins] = useState([]);
 
+
   useEffect(() => {
-    getPins().then((startPins) => {
-      setPins(startPins);
-    });
+    (async () => {
+      const colls = await getRecommendations();
+      const hello = colls.map((col) => ({
+        color: "#fff",
+        height: 300,
+        width: 300,
+        src: col.image_url,
+        name: col.description,
+        href: `/users/${col.user_id}/collections/${col.id}`,
+      }));
+      setPins(hello);
+    })();
+    return () => { }
   }, []);
 
   return (
@@ -100,9 +43,9 @@ export function Home() {
             columnWidth={170}
             gutterWidth={20}
             items={pins}
-            layout="basicCentered"
+            layout="basic"
             minCols={4}
-            renderItem={({ data }) => <GridComponent data={data} />}
+            renderItem={({ data }) => <CollectionBox data={data} />}
           />
 
         </div>

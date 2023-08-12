@@ -1,4 +1,35 @@
-import { Alchemy } from "alchemy-sdk";
+import axios from 'axios';
+import { AxiosInstance } from 'axios'
+
+const config = {
+  headers: {
+    'Authorization': 'Bearer your_access_token',
+    'Content-Type': 'application/json'
+  },
+  baseURL: 'http://localhost:8080/',
+};
+
+const instance: AxiosInstance = axios.create(config);
+
+export async function getRecommendations() {
+  const resp = await instance.get("/users/1/recommendations");
+  console.log(resp);
+  return resp.data;
+}
+
+export async function getUserFromAddress(address: string) {
+  const resp = await instance.get(`/users/?users=${address}`);
+  console.log(resp);
+  if (resp.data.length > 0) {
+    return resp.data[0];
+  }
+  return null
+}
+
+export async function getUserCollections(userId: number) {
+  const resp = await instance.get(`/users/${userId}/collections`);
+  return resp.data;
+}
 
 export function getPins() {
   const pins = [
