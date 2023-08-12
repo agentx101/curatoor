@@ -9,6 +9,7 @@ import ErrorPage from "./pages/error"
 
 import { App } from "./pages/App";
 import { Home } from "./pages/Home";
+import { Collections } from "./pages/Collections";
 import { chains, config } from "./wagmi";
 
 const router = createBrowserRouter(
@@ -16,7 +17,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<Root />}>
       <Route index element={<Home />} />
       <Route path="/users/:id" element={<Home />} />
-      <Route path="/users/:id/collections/" element={<Home />} />
+      <Route path="/users/:id/collections/" element={<Collections />} />
       <Route path="/collections/:id/" element={<Home />} />
       <Route path="/collections" element={<Home />} />
       <Route path="/connect" element={<App />} />

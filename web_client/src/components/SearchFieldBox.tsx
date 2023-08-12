@@ -1,12 +1,25 @@
-
-import { useState } from 'react';
+import { useState } from "react"
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
-import { Box, Flex, Icon, IconButton, SearchField } from 'gestalt';
+import { Box, Flex, Icon, SearchField } from 'gestalt';
+import useAccountStore from "../store/account"
+
+import { ALCHEMY_KEY, CHAINS } from "../constants"
+
+
+
 
 export default function SearchFieldBox() {
   const [searchValue, setSearchValue] = useState('');
-  const { isConnected } = useAccount();
+  const { address, isConnected } = useAccount();
+  const setAccount = useAccountStore((state) => state.setAccount);
+
+
+  if (isConnected && !!address) {
+    console.log(address);
+    setAccount(address);
+
+  }
   return (
     <Box
       padding={8}
