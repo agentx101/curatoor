@@ -20,7 +20,7 @@ ENV PATH="/root/.foundry/bin:${PATH}"
 RUN curl -L https://foundry.paradigm.xyz | bash
 RUN foundryup
 RUN npm install -g npm@9.8.1
-RUN npm install --include=dev
+RUN npm install
 
 # start app
 CMD ["npm", "run", "dev", "--host localhost"]
