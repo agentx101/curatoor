@@ -1,7 +1,7 @@
 # Curista
 An Art gallery of NFTs, powered by ERC6551, Layerzero and EAS NFT curators can make independent collections of multiple NFTs on OP, Base and Zora, natively.
 
-# Dec
+# Decription
 This is a platform built for NFT curators and NFT searchers.
 It enables every user to create separate NFT curations in a single wallet (powered by ERC 6551 - Token bound accounts) . Each of these curations have NFTs relevant to the story and naunces for that theme. Eg. a modern art TBA can have all modern art related NFTs in it, similarly a pixel art TBA can contain just pixel arts. NFTs from any chain can be sent to a TBA hosted on one of the OP chain (Zora, base, OP), which can further get attested by other NFT enthusiasts. 
 
@@ -11,7 +11,7 @@ Curators have the unique social and cultural insights to purchase and mint NFTs 
 
 The current  " collect all your NFTs in a single wallet" has a huge limitation. There is no way to make any one particular one stand out and for a curator to tell the story natively. Our platform provides the structural base and the front end to showcase the unique perspective of curators to the world. Here any user can browse through the multiple individually curated galleries and purchase an NFT or the whole bundle.
 
-#How it is made
+# How it is made
 
 The project was built with the OP starter kit as the base to connect with wallets etc. We used an open source library that mimicked pinterest to be used as the front end for the platform. Built and hosted it using Docker.
 
