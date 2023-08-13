@@ -26,7 +26,7 @@ Once it is a part of the collection, each of the NFTs and the whole collection i
 
 
 # Requirements
-You must to have docker installed on your system to be able to curatoor
+You must to have docker installed on your system to be able to curate
 
 # Installing
 
